@@ -130,12 +130,12 @@ const Footer = () => {
           width="300"
           height="300"
           src={Logo}
-          alt="Wibe"
+          alt="Luxe"
           data-scroll
           data-scroll-speed="2"
         />
         <h3 data-scroll data-scroll-speed="-1">
-          Wibe Studio
+          Luxe Studio
         </h3>
       </LogoContainer>
       <FooterComponent
@@ -176,22 +176,9 @@ const Footer = () => {
             data-scroll-speed="2"
             data-scroll-direction="horizontal"
           >
-            &copy; 2022. All Rights Reserved.
+            &copy; 2024. Luxe Studio. All Rights Reserved.
           </span>
-          <span
-            data-scroll
-            data-scroll-speed="-2"
-            data-scroll-direction="horizontal"
-          >
-            Made with &hearts; by{" "}
-            <a
-              href="http://devdreaming.com"
-              target={"_blank"}
-              rel="dofollow noreferrer"
-            >
-              CodeBucks
-            </a>
-          </span>
+          <span data-scroll data-scroll-speed="-2" data-scroll-direction="horizontal">Designed for the fashion-forward.</span>
         </Bottom>
       </FooterComponent>
     </Section>

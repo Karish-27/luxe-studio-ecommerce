@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import React, {  useLayoutEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import img1 from '../assets/Images/11.webp';
@@ -135,6 +136,11 @@ const Item = styled.div`
   justify-content: center;
   align-items: center;
   margin: 5rem 0;
+  position: relative;
+
+  &:hover .arrival-overlay {
+    opacity: 1;
+  }
 
   h2 {
   }
@@ -143,12 +149,46 @@ const Item = styled.div`
     width: 100%;
     height: auto;
     z-index: 5;
+    display: block;
   }
 `;
-const Photos = ({ img, name }) => {
+
+const ArrivalOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 6;
+  pointer-events: none;
+`;
+
+const ViewLabel = styled.span`
+  font-family: 'Sirin Stencil';
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 0.4rem 1rem;
+  background: rgba(0, 0, 0, 0.5);
+`;
+
+const Photos = ({ img, name, productId }) => {
   return (
     <Item>
-      <img width="400" height="600" src={img} alt={name} />
+      <Link to={productId ? `/product/${productId}` : "/shop"} style={{ display: 'block', position: 'relative', width: '100%' }}>
+        <img width="400" height="600" src={img} alt={name} />
+        <ArrivalOverlay className="arrival-overlay">
+          <ViewLabel>View Details</ViewLabel>
+        </ArrivalOverlay>
+      </Link>
       <h2>{name}</h2>
     </Item>
   );
@@ -222,10 +262,10 @@ let t1= gsap.timeline();
       </Title>
 
       <Container ref={ScrollingRef}>
-        <Photos img={img1} name="Denim" />
-        <Photos img={img2} name="Cool Dresses" />
-        <Photos img={img3} name="Jackets" />
-        <Photos img={img4} name="T-shirts" />
+        <Photos img={img1} name="Denim" productId={18} />
+        <Photos img={img2} name="Cool Dresses" productId={4} />
+        <Photos img={img3} name="Jackets" productId={2} />
+        <Photos img={img4} name="T-shirts" productId={7} />
       </Container>
 
       <Text data-scroll data-scroll-speed="-4">

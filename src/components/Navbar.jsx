@@ -1,15 +1,14 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
-import { useLocomotiveScroll } from 'react-locomotive-scroll';
 import { Link } from 'react-router-dom';
+import { useLocomotiveScroll } from 'react-locomotive-scroll';
 import styled from 'styled-components';
+import CartIcon from './CartIcon';
 
 const NavContainer = styled(motion.div)`
   position: absolute;
-  /* left: 50%; */
   top: ${(props) => (props.click ? '0' : `-${props.theme.navHeight}`)};
   transition: all 0.3s ease;
-  /* transform: translateX(-50%); */
   z-index: 6;
   width: 100vw;
 
@@ -17,10 +16,8 @@ const NavContainer = styled(motion.div)`
   justify-content: center;
   align-items: center;
 
-  
   @media (max-width: 40em) {
     top: ${(props) => (props.click ? '0' : `calc(-50vh - 4rem)`)};
-
   }
 `;
 
@@ -43,10 +40,6 @@ const MenuBtn = styled.li`
   font-size: ${(props) => props.theme.fontmd};
   font-weight: 600;
 
-  /* border-end-start-radius: 50%; */
-
-  /* border-end-end-radius: 50%; */
-
   cursor: pointer;
 
   display: flex;
@@ -58,7 +51,6 @@ const MenuBtn = styled.li`
   @media (max-width: 40em) {
     width: 10rem;
     height: 2rem;
-
   }
 `;
 
@@ -76,8 +68,8 @@ const MenuItems = styled(motion.ul)`
   padding: 0 10rem;
 
   @media (max-width: 40em) {
-    flex-direction:column;
-    padding:2rem 0;
+    flex-direction: column;
+    padding: 2rem 0;
     height: 50vh;
   }
 `;
@@ -87,9 +79,17 @@ const Item = styled(motion.li)`
   color: ${(props) => props.theme.text};
 
   @media (max-width: 40em) {
-    flex-direction:column;
-    padding:0.5rem 0;
+    flex-direction: column;
+    padding: 0.5rem 0;
+  }
+`;
 
+const CartItem = styled.li`
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 40em) {
+    padding: 0.5rem 0;
   }
 `;
 
@@ -100,7 +100,6 @@ const Navbar = () => {
 
   const handleScroll = (id) => {
     let elem = document.querySelector(id);
-    // console.log(elem);
     setClick(!click);
     scroll.scrollTo(elem, {
       offset: '-100',
@@ -114,7 +113,7 @@ const Navbar = () => {
       click={+click}
       initial={{ y: `-100%` }}
       animate={{ y: 0 }}
-      transition={{ duration: 2, delay: 5 /* 2 */ }}
+      transition={{ duration: 2, delay: 5 }}
     >
       <MenuItems
         drag="y"
@@ -130,7 +129,6 @@ const Navbar = () => {
           whileTap={{ scale: 0.9, y: 0 }}
           onClick={() => handleScroll('#home')}
         >
-          {' '}
           <Link to="/">Home</Link>
         </Item>
         <Item
@@ -138,24 +136,24 @@ const Navbar = () => {
           whileTap={{ scale: 0.9, y: 0 }}
           onClick={() => handleScroll('.about')}
         >
-          <Link to="/">about</Link>
+          <Link to="/">About</Link>
         </Item>
         <Item
           whileHover={{ scale: 1.1, y: -5 }}
           whileTap={{ scale: 0.9, y: 0 }}
-          onClick={() => handleScroll('#shop')}
         >
-          <Link to="/">shop</Link>
+          <Link to="/shop" onClick={() => setClick(false)}>Shop</Link>
         </Item>
-
         <Item
           whileHover={{ scale: 1.1, y: -5 }}
           whileTap={{ scale: 0.9, y: 0 }}
           onClick={() => handleScroll('.new-arrival')}
         >
-          {' '}
-          <Link to="/">new arrival</Link>
+          <Link to="/">New Arrival</Link>
         </Item>
+        <CartItem>
+          <CartIcon />
+        </CartItem>
       </MenuItems>
     </NavContainer>
   );

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import React, { useLayoutEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import img1 from "../assets/Images/1.webp";
@@ -109,10 +110,17 @@ const Item = styled(motion.div)`
   width: 20rem;
   /* background-color: black; */
   margin-right: 6rem;
+  position: relative;
+
+  &:hover .shop-overlay {
+    opacity: 1;
+  }
+
   img {
     width: 100%;
     height: auto;
     cursor: pointer;
+    display: block;
   }
 
   h1 {
@@ -125,17 +133,49 @@ const Item = styled(motion.div)`
     width: 15rem;
   }
 `;
+
+const ProductOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 2.5rem;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 1.25rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+`;
+
+const ViewBtn = styled.span`
+  font-family: 'Sirin Stencil';
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.4rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+`;
+
 //data-scroll data-scroll-speed="-2" data-scroll-direction="horizontal"
-const Product = ({ img, title = "" }) => {
+const Product = ({ img, title = "", productId }) => {
   return (
-    // x: 100, y: -100
     <Item
       initial={{ filter: "grayscale(100%)" }}
       whileInView={{ filter: "grayscale(0%)" }}
       transition={{ duration: 0.5 }}
       viewport={{ once: false, amount: "all" }}
     >
-      <img width="400" height="600" src={img} alt={title} />
+      <Link to={productId ? `/product/${productId}` : "/shop"} style={{ display: 'block', position: 'relative' }}>
+        <img width="400" height="600" src={img} alt={title} />
+        <ProductOverlay className="shop-overlay">
+          <ViewBtn>View Product</ViewBtn>
+        </ProductOverlay>
+      </Link>
       <h1>{title}</h1>
     </Item>
   );
@@ -214,16 +254,16 @@ const Shop = () => {
         </p>
       </Left>
       <Right data-scroll ref={Horizontalref}>
-        <Product img={img3} title="Sweatshirts" />
-        <Product img={img4} title="Ethnic Wear" />
-        <Product img={img1} title="Man Basics" />
-        <Product img={img2} title="Tops" />
-        <Product img={img5} title="Blazers" />
-        <Product img={img6} title="Suits" />
-        <Product img={img7} title="Antiques" />
-        <Product img={img8} title="Jewellery" />
-        <Product img={img9} title="Watches" />
-        <Product img={img10} title="Special Edition" />
+        <Product img={img3} title="Sweatshirts" productId={6} />
+        <Product img={img4} title="Ethnic Wear" productId={5} />
+        <Product img={img1} title="Man Basics" productId={7} />
+        <Product img={img2} title="Tops" productId={1} />
+        <Product img={img5} title="Blazers" productId={8} />
+        <Product img={img6} title="Suits" productId={3} />
+        <Product img={img7} title="Antiques" productId={12} />
+        <Product img={img8} title="Jewellery" productId={10} />
+        <Product img={img9} title="Watches" productId={9} />
+        <Product img={img10} title="Special Edition" productId={20} />
       </Right>
     </Section>
   );
