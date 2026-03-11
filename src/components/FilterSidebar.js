@@ -21,12 +21,35 @@ const FilterGroup = styled.div`
 `;
 
 const FilterTitle = styled.h4`
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   font-size: ${(props) => props.theme.fontsm};
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: ${(props) => props.theme.grey};
   margin-bottom: 1rem;
+`;
+
+const GenderPills = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+`;
+
+const GenderPill = styled.button`
+  background: ${(props) => props.active ? '#FFFFFF' : 'transparent'};
+  color: ${(props) => props.active ? '#000000' : '#999999'};
+  border: 1px solid ${(props) => props.active ? '#FFFFFF' : '#333333'};
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  font-size: ${(props) => props.theme.fontsm};
+  font-family: 'Inter', sans-serif;
+  text-transform: capitalize;
+  transition: all 0.3s;
+
+  &:hover {
+    border-color: ${(props) => props.active ? '#FFFFFF' : '#666666'};
+    color: ${(props) => props.active ? '#000000' : '#FFFFFF'};
+  }
 `;
 
 const CategoryList = styled.ul`
@@ -65,7 +88,7 @@ const SizeBtn = styled.button`
   padding: 0.4rem;
   cursor: pointer;
   font-size: ${(props) => props.theme.fontxs};
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   text-transform: uppercase;
   transition: all 0.2s;
 
@@ -87,7 +110,7 @@ const PriceRange = styled.div`
     color: ${(props) => props.theme.text};
     padding: 0.4rem 0.6rem;
     font-size: ${(props) => props.theme.fontsm};
-    font-family: 'Sirin Stencil';
+    font-family: 'Inter', sans-serif;
     width: 100%;
     outline: none;
 
@@ -108,12 +131,12 @@ const SortSelect = styled.select`
   color: ${(props) => props.theme.text};
   padding: 0.5rem 0.75rem;
   font-size: ${(props) => props.theme.fontsm};
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   cursor: pointer;
   outline: none;
 
   option {
-    background: #202020;
+    background: #000000;
     color: #fff;
   }
 
@@ -128,7 +151,7 @@ const ResetBtn = styled.button`
   color: ${(props) => props.theme.grey};
   cursor: pointer;
   font-size: ${(props) => props.theme.fontsm};
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   transition: all 0.2s;
@@ -145,14 +168,34 @@ const CATEGORIES = [
   { value: 'clothing', label: 'Clothing' },
   { value: 'accessories', label: 'Accessories' },
   { value: 'footwear', label: 'Footwear' },
-  { value: 'new-arrivals', label: 'New Arrivals' },
 ];
 
 const SIZES = ['XS', 'S', 'M', 'L', 'XL'];
 
+const GENDERS = [
+  { value: 'all', label: 'All' },
+  { value: 'women', label: 'Women' },
+  { value: 'men', label: 'Men' },
+];
+
 const FilterSidebar = ({ filters, onFilterChange, onReset }) => {
   return (
     <Sidebar>
+      <FilterGroup>
+        <FilterTitle>Shop For</FilterTitle>
+        <GenderPills>
+          {GENDERS.map((g) => (
+            <GenderPill
+              key={g.value}
+              active={filters.gender === g.value}
+              onClick={() => onFilterChange('gender', g.value)}
+            >
+              {g.label}
+            </GenderPill>
+          ))}
+        </GenderPills>
+      </FilterGroup>
+
       <FilterGroup>
         <FilterTitle>Sort By</FilterTitle>
         <SortSelect
@@ -211,7 +254,7 @@ const FilterSidebar = ({ filters, onFilterChange, onReset }) => {
             value={filters.minPrice}
             onChange={(e) => onFilterChange('minPrice', e.target.value)}
           />
-          <span>–</span>
+          <span>&ndash;</span>
           <input
             type="number"
             placeholder="Max"

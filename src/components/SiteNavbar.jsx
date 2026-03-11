@@ -24,11 +24,13 @@ const NavBar = styled(motion.nav)`
 `;
 
 const Brand = styled(Link)`
-  font-family: 'Kaushan Script';
+  font-family: 'Cormorant Garamond', serif;
   font-size: ${(props) => props.theme.fontlg};
   color: ${(props) => props.theme.text};
   text-decoration: none;
-  letter-spacing: 0.05em;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   white-space: nowrap;
 `;
 
@@ -61,6 +63,7 @@ const NavItem = styled(motion.li)`
   text-transform: uppercase;
   font-size: ${(props) => props.theme.fontsm};
   letter-spacing: 0.1em;
+  font-family: 'Inter', sans-serif;
 `;
 
 const NavLink = styled(Link)`
@@ -68,9 +71,27 @@ const NavLink = styled(Link)`
     props.active ? props.theme.text : props.theme.grey};
   text-decoration: none;
   transition: color 0.2s;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: ${(props) => props.theme.text};
+    transform: scaleX(${(props) => props.active ? 1 : 0});
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
 
   &:hover {
     color: ${(props) => props.theme.text};
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
   }
 `;
 
@@ -109,7 +130,8 @@ const SiteNavbar = () => {
   const navItems = [
     { label: 'Home', to: '/' },
     { label: 'Shop', to: '/shop' },
-    { label: 'New Arrivals', to: '/shop?filter=new-arrivals' },
+    { label: 'New Arrivals', to: '/new-arrivals' },
+    { label: 'Orders', to: '/orders' },
   ];
 
   return (
@@ -118,7 +140,7 @@ const SiteNavbar = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4 }}
     >
-      <Brand to="/">Luxe Studio</Brand>
+      <Brand to="/">Noir Atelier</Brand>
 
       <NavLinks open={menuOpen}>
         {navItems.map((item) => (

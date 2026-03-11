@@ -20,8 +20,8 @@ const Sidebar = styled(motion.div)`
   right: 0;
   width: 380px;
   height: 100vh;
-  background-color: #1a1a1a;
-  border-left: 1px solid rgba(255,255,255,0.1);
+  background-color: #111111;
+  border-left: 1px solid rgba(255,255,255,0.08);
   z-index: 101;
   display: flex;
   flex-direction: column;
@@ -39,10 +39,10 @@ const Header = styled.div`
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 
   h3 {
-    font-family: 'Kaushan Script';
+    font-family: 'Cormorant Garamond', serif;
     font-size: ${(props) => props.theme.fontxl};
     color: ${(props) => props.theme.text};
     font-weight: 300;
@@ -89,7 +89,7 @@ const ItemInfo = styled.div`
     font-size: ${(props) => props.theme.fontsm};
     color: ${(props) => props.theme.text};
     margin-bottom: 0.25rem;
-    font-family: 'Kaushan Script';
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
   }
 
@@ -108,7 +108,7 @@ const ItemInfo = styled.div`
 
 const AddedMessage = styled.div`
   background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 4px;
   padding: 0.75rem 1rem;
   font-size: ${(props) => props.theme.fontsm};
@@ -122,7 +122,7 @@ const Subtotal = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255,255,255,0.08);
   margin-top: auto;
 
   span {
@@ -131,7 +131,7 @@ const Subtotal = styled.div`
   }
 
   strong {
-    font-family: 'Kaushan Script';
+    font-family: 'Cormorant Garamond', serif;
     font-size: ${(props) => props.theme.fontlg};
     font-weight: 300;
   }
@@ -149,7 +149,7 @@ const Btn = styled.button`
   padding: 0.875rem;
   cursor: pointer;
   font-size: ${(props) => props.theme.fontsm};
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   transition: all 0.3s ease;

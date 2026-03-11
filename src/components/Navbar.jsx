@@ -22,7 +22,7 @@ const NavContainer = styled(motion.div)`
 `;
 
 const MenuBtn = styled.li`
-  background-color: ${(props) => `rgba(${props.theme.textRgba},0.7)`};
+  background-color: rgba(255, 255, 255, 0.7);
   color: ${(props) => props.theme.body};
   width: 15rem;
   height: 2.5rem;
@@ -134,22 +134,20 @@ const Navbar = () => {
         <Item
           whileHover={{ scale: 1.1, y: -5 }}
           whileTap={{ scale: 0.9, y: 0 }}
-          onClick={() => handleScroll('.about')}
-        >
-          <Link to="/">About</Link>
-        </Item>
-        <Item
-          whileHover={{ scale: 1.1, y: -5 }}
-          whileTap={{ scale: 0.9, y: 0 }}
         >
           <Link to="/shop" onClick={() => setClick(false)}>Shop</Link>
         </Item>
         <Item
           whileHover={{ scale: 1.1, y: -5 }}
           whileTap={{ scale: 0.9, y: 0 }}
-          onClick={() => handleScroll('.new-arrival')}
         >
-          <Link to="/">New Arrival</Link>
+          <Link to="/new-arrivals" onClick={() => setClick(false)}>New Arrivals</Link>
+        </Item>
+        <Item
+          whileHover={{ scale: 1.1, y: -5 }}
+          whileTap={{ scale: 0.9, y: 0 }}
+        >
+          <Link to="/orders" onClick={() => setClick(false)}>Orders</Link>
         </Item>
         <CartItem>
           <CartIcon />

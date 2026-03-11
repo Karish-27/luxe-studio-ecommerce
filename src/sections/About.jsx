@@ -28,6 +28,8 @@ const Left = styled.div`
   width: 50%;
   font-size: ${(props) => props.theme.fontlg};
   font-weight: 300;
+  color: ${(props) => props.theme.greyLight};
+  line-height: 1.7;
   position: relative;
   z-index: 5;
   margin-top: 20%;
@@ -66,6 +68,7 @@ const Right = styled.div`
   img {
     width: 100%;
     height: auto;
+    filter: grayscale(100%);
   }
 
   .small-img-1 {
@@ -110,7 +113,7 @@ const Right = styled.div`
 
 const Title = styled.h1`
   font-size: ${(props) => props.theme.fontBig};
-  font-family: "Kaushan Script";
+  font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
   /* text-transform: capitalize; */
 
@@ -144,20 +147,21 @@ const About = () => {
         About Us
       </Title>
       <Left data-scroll data-scroll-sticky data-scroll-target="#fixed-target">
-        We&apos;re fashion studio based in california. We create unique designs
-        that will blow your mind. We also design unique jewellary pieces.
-        Fashion is an ART that can not be grasped by everyone.
+        Born from a vision of timeless elegance, NOIR ATELIER curates pieces
+        that transcend seasons and trends. We believe fashion is not about
+        following &mdash; it is about defining. Each piece in our collection is
+        selected for its craftsmanship, material quality, and ability to become
+        part of your personal narrative.
         <br />
         <br />
-        We are very dedicated to making our products. We offer unique and
-        creative products to a wide range of people. We have a variety of
-        styles, but for most people, all of the options are in the box. We
-        specialize in making things that make you happy.
+        Our philosophy is simple: less noise, more substance. We work with
+        artisans who share our commitment to quality, sourcing only the finest
+        materials from around the world. Every garment tells a story of
+        dedication and precision.
         <br />
         <br />
-        We strive to build on our vision. As a fashion label, we do our best to
-        create amazing experiences for all people. We are always looking to make
-        something that is easy for everyone.
+        From concept to creation, we honor the tradition of couture while
+        embracing the future of design. This is fashion without compromise.
       </Left>
 
       <Right>

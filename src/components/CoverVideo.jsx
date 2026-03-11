@@ -12,6 +12,7 @@ const VideoContainer = styled.section`
     width: 100%;
     height: 100vh;
     object-fit: cover;
+    filter: grayscale(100%) brightness(0.7);
 
     @media (max-width: 48em) {
       object-position: center 10%;
@@ -29,7 +30,7 @@ const DarkOverlay = styled.div`
   right: 0;
   bottom: 0;
   z-index: 1;
-  background-color: ${(props) => `rgba(${props.theme.bodyRgba},0.6)`};
+  background-color: rgba(0, 0, 0, 0.6);
 `;
 
 const Title = styled(motion.div)`
@@ -52,10 +53,12 @@ const Title = styled(motion.div)`
   }
 
   h1 {
-    font-family: "Kaushan Script";
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    letter-spacing: 0.15em;
     font-size: ${(props) => props.theme.fontBig};
 
-    text-shadow: 1px 1px 1px ${(props) => props.theme.body};
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 
     @media (max-width: 30em) {
       /* font-size: ${(props) => props.theme.fontxxxl}; */
@@ -64,12 +67,12 @@ const Title = styled(motion.div)`
   }
   h2 {
     font-size: ${(props) => props.theme.fontlg};
-    font-family: "Sirin Stencil";
-    font-weight: 500;
-    text-shadow: 1px 1px 1px ${(props) => props.theme.body};
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     margin: 0 auto;
-
-    text-transform: capitalize;
 
     @media (max-width: 30em) {
       font-size: ${(props) => props.theme.fontmd};
@@ -108,7 +111,7 @@ const CoverVideo = () => {
             data-scroll-delay="0.13"
             data-scroll-speed="4"
           >
-            L
+            N
           </motion.h1>
           <motion.h1
             variants={item}
@@ -116,7 +119,7 @@ const CoverVideo = () => {
             data-scroll-delay="0.09"
             data-scroll-speed="4"
           >
-            U
+            O
           </motion.h1>
           <motion.h1
             variants={item}
@@ -124,7 +127,7 @@ const CoverVideo = () => {
             data-scroll-delay="0.06"
             data-scroll-speed="4"
           >
-            X
+            I
           </motion.h1>
           <motion.h1
             variants={item}
@@ -132,7 +135,7 @@ const CoverVideo = () => {
             data-scroll-delay="0.04"
             data-scroll-speed="4"
           >
-            E
+            R
           </motion.h1>
         </div>
         <motion.h2
@@ -142,7 +145,7 @@ const CoverVideo = () => {
           data-scroll-delay="0.04"
           data-scroll-speed="2"
         >
-          inspire. create. define
+          curate. refine. define
         </motion.h2>
       </Title>
 

@@ -1,14 +1,21 @@
 export const light = {
-  body: '#fff',
-  text: '#202020', // black shade
+  body: '#FFFFFF',
+  text: '#000000',
   bodyRgba: '255, 255, 255',
-  textRgba: '32,32,32',
+  textRgba: '0, 0, 0',
 
-  grey: '#bebebe',
+  grey: '#999999',
+  greyLight: '#E0E0E0',
+  greyMuted: '#666666',
+  surface: '#F5F5F5',
+  card: '#EEEEEE',
+  border: '#DDDDDD',
+  borderStrong: '#CCCCCC',
+  borderActive: '#BBBBBB',
 
   fontxs: '0.75em',
   fontsm: '0.875em',
-  fontmd: '1em', // 1em = 16px
+  fontmd: '1em',
   fontlg: '1.25em',
   fontxl: '2em',
   fontxxl: '3em',
@@ -19,16 +26,23 @@ export const light = {
 };
 
 export const dark = {
-  body: '#202020',
-  text: '#fff', // black shade
-  bodyRgba: '32,32,32',
+  body: '#000000',
+  text: '#FFFFFF',
+  bodyRgba: '0, 0, 0',
   textRgba: '255, 255, 255',
 
-  grey: '#bebebe',
+  grey: '#999999',
+  greyLight: '#E0E0E0',
+  greyMuted: '#666666',
+  surface: '#1A1A1A',
+  card: '#111111',
+  border: '#222222',
+  borderStrong: '#333333',
+  borderActive: '#444444',
 
   fontxs: '0.75em',
   fontsm: '0.875em',
-  fontmd: '1em', // 1em = 16px
+  fontmd: '1em',
   fontlg: '1.25em',
   fontxl: '2em',
   fontxxl: '3em',

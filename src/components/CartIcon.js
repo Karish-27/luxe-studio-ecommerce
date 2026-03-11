@@ -32,8 +32,8 @@ const Badge = styled.span`
   position: absolute;
   top: -0.2rem;
   right: -0.2rem;
-  background-color: #fff;
-  color: #202020;
+  background-color: #FFFFFF;
+  color: #000000;
   border-radius: 50%;
   width: 1.2rem;
   height: 1.2rem;
@@ -42,7 +42,7 @@ const Badge = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Sirin Stencil', sans-serif;
+  font-family: 'Inter', sans-serif;
 `;
 
 const CartIcon = () => {

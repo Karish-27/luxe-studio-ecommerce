@@ -23,7 +23,7 @@ const Container = styled.div`
 `;
 
 const PageTitle = styled(motion.h1)`
-  font-family: 'Kaushan Script';
+  font-family: 'Cormorant Garamond', serif;
   font-size: ${(props) => props.theme.fontxxxl};
   font-weight: 300;
   margin-bottom: 3rem;
@@ -73,7 +73,7 @@ const ItemImage = styled.img`
 
 const ItemDetails = styled.div`
   h3 {
-    font-family: 'Kaushan Script';
+    font-family: 'Cormorant Garamond', serif;
     font-size: ${(props) => props.theme.fontlg};
     font-weight: 300;
     margin-bottom: 0.5rem;
@@ -166,7 +166,7 @@ const OrderSummary = styled.div`
   top: calc(${(props) => props.theme.navHeight} + 2rem);
 
   h2 {
-    font-family: 'Kaushan Script';
+    font-family: 'Cormorant Garamond', serif;
     font-size: ${(props) => props.theme.fontxl};
     font-weight: 300;
     margin-bottom: 1.5rem;
@@ -219,7 +219,7 @@ const PromoInput = styled.div`
     color: ${(props) => props.theme.text};
     padding: 0.5rem 0.75rem;
     font-size: ${(props) => props.theme.fontsm};
-    font-family: 'Sirin Stencil';
+    font-family: 'Inter', sans-serif;
     outline: none;
 
     &:focus { border-color: rgba(255,255,255,0.5); }
@@ -233,7 +233,7 @@ const PromoInput = styled.div`
     padding: 0.5rem 1rem;
     cursor: pointer;
     font-size: ${(props) => props.theme.fontsm};
-    font-family: 'Sirin Stencil';
+    font-family: 'Inter', sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     transition: all 0.2s;
@@ -244,7 +244,7 @@ const PromoInput = styled.div`
 
 const PromoMessage = styled.p`
   font-size: ${(props) => props.theme.fontxs};
-  color: ${(props) => props.success ? '#4ade80' : '#f87171'};
+  color: ${(props) => props.success ? '#FFFFFF' : '#FF4444'};
   margin-top: 0.5rem;
 `;
 
@@ -263,7 +263,7 @@ const PrimaryBtn = styled.button`
   border: 1px solid ${(props) => props.theme.text};
   cursor: pointer;
   font-size: ${(props) => props.theme.fontsm};
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   transition: all 0.3s ease;
@@ -283,7 +283,7 @@ const SecondaryBtn = styled(Link)`
   border: 1px solid rgba(255,255,255,0.3);
   cursor: pointer;
   font-size: ${(props) => props.theme.fontsm};
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   transition: all 0.3s ease;
@@ -297,7 +297,7 @@ const EmptyState = styled.div`
   padding: 5rem 2rem;
 
   h2 {
-    font-family: 'Kaushan Script';
+    font-family: 'Cormorant Garamond', serif;
     font-size: ${(props) => props.theme.fontxxl};
     font-weight: 300;
     margin-bottom: 1rem;
@@ -316,7 +316,7 @@ const ShopLink = styled(Link)`
   padding: 0.875rem 2.5rem;
   border: 1px solid ${(props) => props.theme.text};
   color: ${(props) => props.theme.text};
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-size: ${(props) => props.theme.fontsm};
@@ -448,7 +448,7 @@ const CartPage = () => {
                     </PromoInput>
                     {promoCodeError && <PromoMessage>{promoCodeError}</PromoMessage>}
                     <PromoMessage success={false} style={{color: 'rgba(255,255,255,0.3)', marginTop: '0.5rem'}}>
-                      Try: SAVE10, LUXE15, WELCOME20
+                      Try: NOIR10, ATELIER15, WELCOME20
                     </PromoMessage>
                   </>
                 )}

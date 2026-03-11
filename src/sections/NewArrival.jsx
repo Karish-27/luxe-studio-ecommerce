@@ -92,7 +92,7 @@ const Container = styled.div`
 
 const Title = styled(motion.h1)`
   font-size: ${(props) => props.theme.fontxxxl};
-  font-family: 'Kaushan Script';
+  font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
   /* text-transform: capitalize; */
   color: ${(props) => props.theme.body};
@@ -110,7 +110,7 @@ const Title = styled(motion.h1)`
   }
   @media (max-width: 48em) {
     font-size: ${(props) => props.theme.fontxl};
-  
+
   }
 `;
 const Text = styled.div`
@@ -125,9 +125,9 @@ const Text = styled.div`
 
   @media (max-width: 48em) {
     display: none;
-  
+
   }
- 
+
 `;
 
 const Item = styled.div`
@@ -170,7 +170,7 @@ const ArrivalOverlay = styled.div`
 `;
 
 const ViewLabel = styled.span`
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -258,28 +258,21 @@ let t1= gsap.timeline();
       <Title
         data-scroll data-scroll-speed="-2" data-scroll-direction="horizontal"
       >
-        New Arrivals
+        Latest Additions
       </Title>
 
       <Container ref={ScrollingRef}>
-        <Photos img={img1} name="Denim" productId={18} />
-        <Photos img={img2} name="Cool Dresses" productId={4} />
-        <Photos img={img3} name="Jackets" productId={2} />
-        <Photos img={img4} name="T-shirts" productId={7} />
+        <Photos img={img1} name="Raw Indigo" productId={18} />
+        <Photos img={img2} name="Evening Silhouette" productId={4} />
+        <Photos img={img3} name="Overcoat" productId={2} />
+        <Photos img={img4} name="Essential Tee" productId={7} />
       </Container>
 
       <Text data-scroll data-scroll-speed="-4">
-        There is new collection available for cool clothes in all sizes. This collection
-        is a great way to find a new look for you. It offers a variety of cool apparel
-        styles to fit your taste, while you can also find some cool clothes that you can
-        wear everyday.
-        <br />
-        <br />
-        The first line of clothing you will see on this collection is for men. The
-        collection also includes three new styles for women.
-        <br />
-        <br />
-        Give it a try and experience a new look.
+        Discover our latest additions &mdash; pieces that push boundaries while
+        honoring the fundamentals of exceptional design. Each new arrival
+        represents our continued commitment to elevating the everyday through
+        thoughtful craftsmanship and bold simplicity.
       </Text>
     </Section>
   );

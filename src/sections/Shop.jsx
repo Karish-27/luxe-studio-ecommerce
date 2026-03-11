@@ -34,7 +34,7 @@ const Section = styled(motion.section)`
 
 const Title = styled.h1`
   font-size: ${(props) => props.theme.fontxxxl};
-  font-family: "Kaushan Script";
+  font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
   /* text-transform: capitalize; */
   color: ${(props) => props.theme.text};
@@ -97,7 +97,7 @@ const Right = styled.div`
   position: absolute;
   left: 35%;
   padding-left: 30%;
-  background-color: ${(props) => props.theme.grey};
+  background-color: #0A0A0A;
   min-height: 100vh;
 
   display: flex;
@@ -151,7 +151,7 @@ const ProductOverlay = styled.div`
 `;
 
 const ViewBtn = styled.span`
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -237,33 +237,28 @@ const Shop = () => {
   return (
     <Section ref={ref} id="shop">
       <Title data-scroll data-scroll-speed="-1">
-        New Collection
+        The Collection
       </Title>
       <Left>
         <p>
-          The brand new collection is currently being developed in USA. We
-          create our products using best quality material, including the use of
-          some of the pure fabrics to make our products. All products are made
-          using the best materials, from the finest cotton to the finest
-          fabrics.
-          <br /> <br />
-          We have lots of different clothing options like shoes, jackets and
-          dresses. Not only clothes but we also provide unique Jewellery as
-          well. It is great for us to carry our new clothes all around the
-          country and look different.
+          Every piece in the NOIR ATELIER collection is chosen with intention
+          &mdash; a balance of form and material that speaks to those who
+          understand that true style is quiet confidence. From structured
+          tailoring to fluid silhouettes, our curation spans the full spectrum
+          of modern luxury.
         </p>
       </Left>
       <Right data-scroll ref={Horizontalref}>
-        <Product img={img3} title="Sweatshirts" productId={6} />
-        <Product img={img4} title="Ethnic Wear" productId={5} />
-        <Product img={img1} title="Man Basics" productId={7} />
-        <Product img={img2} title="Tops" productId={1} />
-        <Product img={img5} title="Blazers" productId={8} />
-        <Product img={img6} title="Suits" productId={3} />
-        <Product img={img7} title="Antiques" productId={12} />
-        <Product img={img8} title="Jewellery" productId={10} />
-        <Product img={img9} title="Watches" productId={9} />
-        <Product img={img10} title="Special Edition" productId={20} />
+        <Product img={img3} title="Knit Essentials" productId={6} />
+        <Product img={img4} title="Heritage Weave" productId={5} />
+        <Product img={img1} title="Foundation Layers" productId={7} />
+        <Product img={img2} title="Silk Edit" productId={1} />
+        <Product img={img5} title="Tailored Edge" productId={8} />
+        <Product img={img6} title="Noir Tailoring" productId={3} />
+        <Product img={img7} title="Archive Pieces" productId={12} />
+        <Product img={img8} title="Fine Adornment" productId={10} />
+        <Product img={img9} title="Chronograph" productId={9} />
+        <Product img={img10} title="Limited Series" productId={20} />
       </Right>
     </Section>
   );

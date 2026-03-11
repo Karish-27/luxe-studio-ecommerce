@@ -15,7 +15,7 @@ const Section = styled.section`
 
 @media (max-width: 48em){
   width: 90vw;
-} 
+}
 
 `;
 
@@ -34,7 +34,7 @@ const Container = styled.div`
 
 const Banner = styled.h1`
   font-size: ${(props) => props.theme.fontxxxl};
-  font-family: 'Kaushan Script';
+  font-family: 'Cormorant Garamond', serif;
   color: ${(props) => props.theme.text};
   /* position: absolute; */
   white-space: nowrap;
@@ -47,7 +47,7 @@ const Banner = styled.h1`
 @media (max-width: 64em){
     margin: 1rem 0;
 }
- 
+
 @media (max-width: 48em){
     font-size: ${(props) => props.theme.fontxl};
     margin: 0.5rem 0;
@@ -62,7 +62,7 @@ const Banner = styled.h1`
     background-color: ${(props) => props.theme.body};
 
     padding: 1rem 2rem;
-    
+
   }
 `;
 
@@ -77,7 +77,7 @@ const Marquee = () => {
             data-scroll-speed="8"
             data-scroll-target="#direction"
           >
-            Fashon is an armour
+            Where Darkness Meets Elegance
           </span>
         </Banner>
         <Banner data-scroll data-scroll-speed="-2" data-scroll-target="#direction">
@@ -87,7 +87,7 @@ const Marquee = () => {
             data-scroll-speed="-6"
             data-scroll-target="#direction"
           >
-            To survive everyday life
+            A Collection Crafted for Those
           </span>
         </Banner>
         <Banner>
@@ -97,7 +97,7 @@ const Marquee = () => {
             data-scroll-speed="6"
             data-scroll-target="#direction"
           >
-            One is never over-dressed or
+            Who Wear Their Confidence
           </span>
         </Banner>
         <Banner>
@@ -107,7 +107,7 @@ const Marquee = () => {
             data-scroll-speed="-4"
             data-scroll-target="#direction"
           >
-            under-dressed
+            Without Apology
           </span>
         </Banner>
         <Banner data-scroll data-scroll-speed="6" data-scroll-target="#direction">
@@ -117,7 +117,7 @@ const Marquee = () => {
             data-scroll-speed="6"
             data-scroll-target="#direction"
           >
-            with a Little Black Dress.
+            Style Is the Quiet Language
           </span>
         </Banner>
       </Container>

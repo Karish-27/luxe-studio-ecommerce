@@ -15,7 +15,7 @@ const SizeBtn = styled.button`
   color: ${(props) => props.selected ? props.theme.body : props.theme.text};
   border: 1px solid ${(props) => props.selected ? props.theme.text : 'rgba(255,255,255,0.3)'};
   cursor: pointer;
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   font-size: ${(props) => props.theme.fontsm};
   text-transform: uppercase;
   letter-spacing: 0.05em;

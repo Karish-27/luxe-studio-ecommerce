@@ -12,11 +12,9 @@ import ScrollToTop from "./components/ScrollToTop";
 import CartSidebar from "./components/CartSidebar";
 import SiteNavbar from "./components/SiteNavbar";
 
-import About from "./sections/About";
 import Footer from "./sections/Footer";
 import Home from "./sections/Home";
 import Marquee from "./sections/Marquee";
-import NewArrival from "./sections/NewArrival";
 import Shop from "./sections/Shop";
 
 import ShopPage from "./pages/ShopPage";
@@ -24,8 +22,11 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
+import NewArrivalsPage from "./pages/NewArrivalsPage";
+import OrderHistoryPage from "./pages/OrderHistoryPage";
 
 import { CartProvider } from "./context/CartContext";
+import { OrderProvider } from "./context/OrderContext";
 import GlobalStyles from "./styles/GlobalStyles";
 import { dark } from "./styles/Themes";
 
@@ -57,10 +58,8 @@ function HomePage() {
         <AnimatePresence>
           {Loaded ? null : <Loader />}
           <Home key="home" />
-          <About key="about" />
           <Shop key="Shop" />
           <Marquee key="marquee" />
-          <NewArrival key="new arrival" />
           <Footer key="Footer" />
         </AnimatePresence>
       </main>
@@ -105,6 +104,16 @@ function AppRoutes() {
           }
         />
 
+        {/* New Arrivals */}
+        <Route
+          path="/new-arrivals"
+          element={
+            <SiteLayout>
+              <NewArrivalsPage />
+            </SiteLayout>
+          }
+        />
+
         {/* Product detail */}
         <Route
           path="/product/:id"
@@ -144,6 +153,16 @@ function AppRoutes() {
             </SiteLayout>
           }
         />
+
+        {/* Order history */}
+        <Route
+          path="/orders"
+          element={
+            <SiteLayout>
+              <OrderHistoryPage />
+            </SiteLayout>
+          }
+        />
       </Routes>
     </AnimatePresence>
   );
@@ -155,9 +174,11 @@ function App() {
       <GlobalStyles />
       <ThemeProvider theme={dark}>
         <CartProvider>
-          <ScrollToTop />
-          <CartSidebar />
-          <AppRoutes />
+          <OrderProvider>
+            <ScrollToTop />
+            <CartSidebar />
+            <AppRoutes />
+          </OrderProvider>
         </CartProvider>
       </ThemeProvider>
     </>
