@@ -12,6 +12,7 @@ import SizeSelector from '../components/SizeSelector';
 import StarRating from '../components/StarRating';
 import { useCart } from '../context/CartContext';
 import { getProductById, getRelatedProducts } from '../data/products';
+import { getReviewsByProductId } from '../data/reviews';
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -49,7 +50,7 @@ const ProductLayout = styled.div`
 const ProductInfo = styled.div``;
 
 const ProductName = styled.h1`
-  font-family: 'Kaushan Script';
+  font-family: 'Cormorant Garamond', serif;
   font-size: ${(props) => props.theme.fontxxl};
   font-weight: 300;
   color: ${(props) => props.theme.text};
@@ -77,7 +78,7 @@ const PriceRow = styled.div`
 
 const Price = styled.span`
   font-size: ${(props) => props.theme.fontxl};
-  font-family: 'Kaushan Script';
+  font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
   color: ${(props) => props.theme.text};
 `;
@@ -89,8 +90,8 @@ const OriginalPrice = styled.span`
 `;
 
 const DiscountBadge = styled.span`
-  background: #c0392b;
-  color: #fff;
+  background: #FFFFFF;
+  color: #000000;
   padding: 0.2rem 0.5rem;
   font-size: ${(props) => props.theme.fontxs};
   text-transform: uppercase;
@@ -133,7 +134,7 @@ const AddToCartBtn = styled(motion.button)`
   color: ${(props) => props.theme.body};
   border: 1px solid ${(props) => props.theme.text};
   cursor: pointer;
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   font-size: ${(props) => props.theme.fontmd};
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -160,20 +161,20 @@ const WishlistBtn = styled.button`
   text-transform: uppercase;
   letter-spacing: 0.1em;
   text-decoration: underline;
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   transition: color 0.2s;
 
   &:hover { color: ${(props) => props.theme.text}; }
 `;
 
 const ErrorMsg = styled.p`
-  color: #f87171;
+  color: #FF4444;
   font-size: ${(props) => props.theme.fontsm};
   margin-bottom: 0.75rem;
 `;
 
 const SuccessMsg = styled(motion.p)`
-  color: #4ade80;
+  color: #FFFFFF;
   font-size: ${(props) => props.theme.fontsm};
   margin-bottom: 0.75rem;
 `;
@@ -201,7 +202,7 @@ const AccordionHeader = styled.button`
   border: none;
   color: ${(props) => props.theme.text};
   cursor: pointer;
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   font-size: ${(props) => props.theme.fontmd};
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -237,12 +238,161 @@ const AccordionBody = styled.div`
   }
 `;
 
+// Reviews Section
+const ReviewsSection = styled.div`
+  margin-bottom: 4rem;
+`;
+
+const ReviewsSummary = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem;
+  border: 1px solid #222222;
+  margin-bottom: 2rem;
+
+  @media (max-width: 48em) {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+`;
+
+const AverageBlock = styled.div`
+  text-align: center;
+  min-width: 120px;
+
+  .avg-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: ${(props) => props.theme.text};
+    line-height: 1;
+  }
+
+  .avg-count {
+    font-size: ${(props) => props.theme.fontsm};
+    color: ${(props) => props.theme.grey};
+    margin-top: 0.5rem;
+  }
+`;
+
+const DistributionBars = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+`;
+
+const BarRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: ${(props) => props.theme.fontxs};
+
+  span:first-child {
+    width: 2rem;
+    text-align: right;
+    color: ${(props) => props.theme.grey};
+  }
+
+  span:last-child {
+    width: 2rem;
+    color: ${(props) => props.theme.grey};
+  }
+`;
+
+const BarTrack = styled.div`
+  flex: 1;
+  height: 8px;
+  background: #1A1A1A;
+  border-radius: 4px;
+  overflow: hidden;
+`;
+
+const BarFill = styled.div`
+  height: 100%;
+  background: #FFFFFF;
+  border-radius: 4px;
+  width: ${(props) => props.percent}%;
+`;
+
+const ReviewCard = styled.div`
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #222222;
+
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+
+const ReviewHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+`;
+
+const ReviewerName = styled.span`
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: ${(props) => props.theme.fontmd};
+`;
+
+const ReviewDate = styled.span`
+  font-size: ${(props) => props.theme.fontsm};
+  color: #666666;
+`;
+
+const ReviewTitle = styled.h4`
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: ${(props) => props.theme.fontmd};
+  color: ${(props) => props.theme.text};
+  margin: 0.5rem 0 0.25rem;
+`;
+
+const ReviewText = styled.p`
+  font-size: ${(props) => props.theme.fontmd};
+  color: #E0E0E0;
+  line-height: 1.6;
+`;
+
+const VerifiedBadge = styled.span`
+  display: inline-block;
+  background: #1A1A1A;
+  color: #999999;
+  font-size: ${(props) => props.theme.fontxs};
+  padding: 0.2rem 0.5rem;
+  margin-top: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.05em;
+`;
+
+const ShowAllBtn = styled.button`
+  background: none;
+  border: none;
+  color: #999999;
+  font-family: 'Inter', sans-serif;
+  font-size: ${(props) => props.theme.fontsm};
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 1rem 0;
+  transition: color 0.2s;
+
+  &:hover {
+    color: ${(props) => props.theme.text};
+  }
+`;
+
 const RelatedSection = styled.div`
   margin-bottom: 4rem;
 `;
 
 const SectionTitle = styled.h2`
-  font-family: 'Kaushan Script';
+  font-family: 'Cormorant Garamond', serif;
   font-size: ${(props) => props.theme.fontxxl};
   font-weight: 300;
   color: ${(props) => props.theme.text};
@@ -270,17 +420,17 @@ const NotFound = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  background: #202020;
+  background: #000000;
   color: #fff;
 
   h2 {
-    font-family: 'Kaushan Script';
+    font-family: 'Cormorant Garamond', serif;
     font-size: 3rem;
     font-weight: 300;
   }
 
   a {
-    color: #bebebe;
+    color: #999999;
     text-decoration: underline;
   }
 `;
@@ -293,7 +443,7 @@ const ACCORDION_ITEMS = [
 
 const ProductDetailPage = () => {
   const { id } = useParams();
-  
+
   const { addToCart } = useCart();
   const product = getProductById(id);
 
@@ -303,6 +453,7 @@ const ProductDetailPage = () => {
   const [error, setError] = useState('');
   const [added, setAdded] = useState(false);
   const [openAccordion, setOpenAccordion] = useState('description');
+  const [showAllReviews, setShowAllReviews] = useState(false);
 
   if (!product) {
     return (
@@ -314,6 +465,7 @@ const ProductDetailPage = () => {
   }
 
   const relatedProducts = getRelatedProducts(product);
+  const reviews = getReviewsByProductId(product.id);
   const isOnSale = product.originalPrice > product.price;
   const discountPercent = isOnSale
     ? Math.round((1 - product.price / product.originalPrice) * 100)
@@ -348,9 +500,9 @@ const ProductDetailPage = () => {
           <AccordionBody>
             <p>{product.description}</p>
             <br />
-            <p><strong style={{ color: '#fff' }}>Material:</strong> {product.material}</p>
+            <p><strong style={{ color: '#FFFFFF' }}>Material:</strong> {product.material}</p>
             <br />
-            <p><strong style={{ color: '#fff' }}>Category:</strong> {product.category} — {product.subcategory}</p>
+            <p><strong style={{ color: '#FFFFFF' }}>Category:</strong> {product.category} — {product.subcategory}</p>
           </AccordionBody>
         );
       case 'size-guide':
@@ -373,17 +525,29 @@ const ProductDetailPage = () => {
       case 'shipping':
         return (
           <AccordionBody>
-            <p><strong style={{ color: '#fff' }}>Standard Shipping:</strong> Free on orders over $100. Otherwise $10. Delivered in 5–7 business days.</p>
+            <p><strong style={{ color: '#FFFFFF' }}>Standard Shipping:</strong> Free on orders over $100. Otherwise $10. Delivered in 5–7 business days.</p>
             <br />
-            <p><strong style={{ color: '#fff' }}>Express Shipping:</strong> $20. Delivered in 2–3 business days.</p>
+            <p><strong style={{ color: '#FFFFFF' }}>Express Shipping:</strong> $20. Delivered in 2–3 business days.</p>
             <br />
-            <p><strong style={{ color: '#fff' }}>Returns:</strong> We accept returns within 30 days of delivery. Items must be unworn, unwashed, and in original condition. Final sale items cannot be returned.</p>
+            <p><strong style={{ color: '#FFFFFF' }}>Returns:</strong> We accept returns within 30 days of delivery. Items must be unworn, unwashed, and in original condition. Final sale items cannot be returned.</p>
           </AccordionBody>
         );
       default:
         return null;
     }
   };
+
+  // Reviews calculations
+  const avgRating = reviews.length > 0
+    ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1)
+    : product.rating.toFixed(1);
+
+  const ratingDist = [5, 4, 3, 2, 1].map((star) => {
+    const count = reviews.filter((r) => r.rating === star).length;
+    return { star, count, percent: reviews.length > 0 ? (count / reviews.length) * 100 : 0 };
+  });
+
+  const visibleReviews = showAllReviews ? reviews : reviews.slice(0, 3);
 
   return (
     <PageTransition>
@@ -458,7 +622,7 @@ const ProductDetailPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
                   >
-                    ✓ Added to cart!
+                    Added to cart
                   </SuccessMsg>
                 )}
               </AnimatePresence>
@@ -471,7 +635,7 @@ const ProductDetailPage = () => {
                 {product.inStock ? 'Add to Cart' : 'Out of Stock'}
               </AddToCartBtn>
 
-              <WishlistBtn>♡ Add to Wishlist</WishlistBtn>
+              <WishlistBtn>Add to Wishlist</WishlistBtn>
             </ProductInfo>
           </ProductLayout>
 
@@ -480,7 +644,7 @@ const ProductDetailPage = () => {
               <AccordionItem key={item.id}>
                 <AccordionHeader onClick={() => setOpenAccordion(openAccordion === item.id ? null : item.id)}>
                   <span>{item.title}</span>
-                  <span>{openAccordion === item.id ? '−' : '+'}</span>
+                  <span>{openAccordion === item.id ? '\u2212' : '+'}</span>
                 </AccordionHeader>
                 <AnimatePresence>
                   {openAccordion === item.id && (
@@ -497,6 +661,51 @@ const ProductDetailPage = () => {
               </AccordionItem>
             ))}
           </AccordionSection>
+
+          {/* Reviews */}
+          {reviews.length > 0 && (
+            <ReviewsSection>
+              <SectionTitle>Customer Reviews</SectionTitle>
+
+              <ReviewsSummary>
+                <AverageBlock>
+                  <div className="avg-number">{avgRating}</div>
+                  <StarRating rating={parseFloat(avgRating)} size="0.9rem" />
+                  <div className="avg-count">Based on {reviews.length} reviews</div>
+                </AverageBlock>
+                <DistributionBars>
+                  {ratingDist.map((d) => (
+                    <BarRow key={d.star}>
+                      <span>{d.star}</span>
+                      <BarTrack>
+                        <BarFill percent={d.percent} />
+                      </BarTrack>
+                      <span>{d.count}</span>
+                    </BarRow>
+                  ))}
+                </DistributionBars>
+              </ReviewsSummary>
+
+              {visibleReviews.map((review) => (
+                <ReviewCard key={review.reviewId}>
+                  <ReviewHeader>
+                    <ReviewerName>{review.reviewerName}</ReviewerName>
+                    <ReviewDate>{review.reviewDate}</ReviewDate>
+                  </ReviewHeader>
+                  <StarRating rating={review.rating} size="0.8rem" />
+                  <ReviewTitle>{review.reviewTitle}</ReviewTitle>
+                  <ReviewText>{review.reviewText}</ReviewText>
+                  {review.verified && <VerifiedBadge>Verified Purchase</VerifiedBadge>}
+                </ReviewCard>
+              ))}
+
+              {reviews.length > 3 && !showAllReviews && (
+                <ShowAllBtn onClick={() => setShowAllReviews(true)}>
+                  Show All Reviews ({reviews.length})
+                </ShowAllBtn>
+              )}
+            </ReviewsSection>
+          )}
 
           {relatedProducts.length > 0 && (
             <RelatedSection>

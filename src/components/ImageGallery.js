@@ -11,7 +11,7 @@ const MainImage = styled.div`
   width: 100%;
   aspect-ratio: 3/4;
   overflow: hidden;
-  background: #1a1a1a;
+  background: #111111;
 
   img {
     width: 100%;

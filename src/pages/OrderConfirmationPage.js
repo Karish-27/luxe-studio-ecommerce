@@ -37,7 +37,7 @@ const CheckCircle = styled(motion.div)`
 `;
 
 const Heading = styled(motion.h1)`
-  font-family: 'Kaushan Script';
+  font-family: 'Cormorant Garamond', serif;
   font-size: ${(props) => props.theme.fontxxl};
   font-weight: 300;
   margin-bottom: 1rem;
@@ -81,7 +81,7 @@ const TotalDisplay = styled(motion.div)`
   }
 
   strong {
-    font-family: 'Kaushan Script';
+    font-family: 'Cormorant Garamond', serif;
     font-size: ${(props) => props.theme.fontxl};
     font-weight: 300;
     color: ${(props) => props.theme.text};
@@ -94,17 +94,43 @@ const Divider = styled.hr`
   margin: 1.5rem 0;
 `;
 
-const ShopBtn = styled(motion(Link))`
+const ButtonGroup = styled(motion.div)`
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+`;
+
+const PrimaryBtn = styled(Link)`
   display: inline-block;
-  padding: 0.875rem 3rem;
+  padding: 0.875rem 2.5rem;
+  background: ${(props) => props.theme.text};
+  color: ${(props) => props.theme.body};
   border: 1px solid ${(props) => props.theme.text};
-  color: ${(props) => props.theme.text};
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   font-size: ${(props) => props.theme.fontsm};
   text-transform: uppercase;
   letter-spacing: 0.2em;
   transition: all 0.3s;
-  margin-top: 1rem;
+  text-decoration: none;
+
+  &:hover {
+    background: transparent;
+    color: ${(props) => props.theme.text};
+  }
+`;
+
+const SecondaryBtn = styled(Link)`
+  display: inline-block;
+  padding: 0.875rem 2.5rem;
+  border: 1px solid ${(props) => props.theme.text};
+  color: ${(props) => props.theme.text};
+  font-family: 'Inter', sans-serif;
+  font-size: ${(props) => props.theme.fontsm};
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  transition: all 0.3s;
   text-decoration: none;
 
   &:hover {
@@ -113,14 +139,10 @@ const ShopBtn = styled(motion(Link))`
   }
 `;
 
-const generateOrderNumber = () =>
-  'ORD-' + Math.floor(100000 + Math.random() * 900000);
-
 const OrderConfirmationPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { email, total } = location.state || {};
-  const orderNumber = React.useMemo(() => generateOrderNumber(), []);
+  const { email, total, orderId } = location.state || {};
 
   useEffect(() => {
     if (!location.state) {
@@ -164,7 +186,7 @@ const OrderConfirmationPage = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.5 }}
           >
-            Order Number: <span>{orderNumber}</span>
+            Order Number: <span>{orderId || 'ORD-000000'}</span>
           </OrderNum>
 
           <Divider />
@@ -191,14 +213,14 @@ const OrderConfirmationPage = () => {
             </TotalDisplay>
           )}
 
-          <ShopBtn
-            to="/shop"
+          <ButtonGroup
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.8 }}
           >
-            Continue Shopping
-          </ShopBtn>
+            <PrimaryBtn to="/shop">Continue Shopping</PrimaryBtn>
+            <SecondaryBtn to="/orders">View Order Details</SecondaryBtn>
+          </ButtonGroup>
         </Card>
       </Wrapper>
     </PageTransition>

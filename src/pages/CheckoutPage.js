@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import PageTransition from '../components/PageTransition';
 import { useCart } from '../context/CartContext';
+import { useOrders } from '../context/OrderContext';
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -23,7 +24,7 @@ const Container = styled.div`
 `;
 
 const PageTitle = styled(motion.h1)`
-  font-family: 'Kaushan Script';
+  font-family: 'Cormorant Garamond', serif;
   font-size: ${(props) => props.theme.fontxxxl};
   font-weight: 300;
   margin-bottom: 2rem;
@@ -50,7 +51,7 @@ const SectionBlock = styled.div`
 `;
 
 const SectionTitle = styled.h2`
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   font-size: ${(props) => props.theme.fontmd};
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -86,18 +87,18 @@ const Label = styled.label`
 
 const Input = styled.input`
   background: rgba(255,255,255,0.04);
-  border: 1px solid ${(props) => props.error ? '#f87171' : 'rgba(255,255,255,0.15)'};
+  border: 1px solid ${(props) => props.error ? '#FF4444' : 'rgba(255,255,255,0.15)'};
   color: ${(props) => props.theme.text};
   padding: 0.75rem 1rem;
   font-size: ${(props) => props.theme.fontmd};
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   outline: none;
   width: 100%;
   transition: border-color 0.2s;
 
   &:focus {
-    border-color: rgba(255,255,255,0.5);
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+    border-color: #FFFFFF;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
   }
 
   &::placeholder { color: rgba(255,255,255,0.25); }
@@ -105,23 +106,26 @@ const Input = styled.input`
 
 const Select = styled.select`
   background: rgba(255,255,255,0.04);
-  border: 1px solid ${(props) => props.error ? '#f87171' : 'rgba(255,255,255,0.15)'};
+  border: 1px solid ${(props) => props.error ? '#FF4444' : 'rgba(255,255,255,0.15)'};
   color: ${(props) => props.theme.text};
   padding: 0.75rem 1rem;
   font-size: ${(props) => props.theme.fontmd};
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   outline: none;
   width: 100%;
   cursor: pointer;
 
-  option { background: #202020; }
+  option { background: #000000; }
 
-  &:focus { border-color: rgba(255,255,255,0.5); }
+  &:focus {
+    border-color: #FFFFFF;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+  }
 `;
 
 const FieldError = styled.span`
   font-size: ${(props) => props.theme.fontxs};
-  color: #f87171;
+  color: #FF4444;
 `;
 
 const ShippingOptions = styled.div`
@@ -181,7 +185,7 @@ const OrderPanel = styled.div`
   top: calc(${(props) => props.theme.navHeight} + 2rem);
 
   h2 {
-    font-family: 'Kaushan Script';
+    font-family: 'Cormorant Garamond', serif;
     font-size: ${(props) => props.theme.fontxl};
     font-weight: 300;
     margin-bottom: 1.5rem;
@@ -211,7 +215,7 @@ const OrderItemInfo = styled.div`
   h4 {
     font-size: ${(props) => props.theme.fontsm};
     color: ${(props) => props.theme.text};
-    font-family: 'Kaushan Script';
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
     margin-bottom: 0.25rem;
   }
@@ -248,7 +252,7 @@ const SubmitBtn = styled(motion.button)`
   color: ${(props) => props.theme.body};
   border: 1px solid ${(props) => props.theme.text};
   cursor: pointer;
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   font-size: ${(props) => props.theme.fontmd};
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -283,7 +287,7 @@ const EmptyRedirect = styled.div`
   text-align: center;
 
   h2 {
-    font-family: 'Kaushan Script';
+    font-family: 'Cormorant Garamond', serif;
     font-size: ${(props) => props.theme.fontxxl};
     font-weight: 300;
   }
@@ -295,6 +299,7 @@ const COUNTRIES = ['United States', 'United Kingdom', 'Canada', 'Australia', 'Fr
 
 const CheckoutPage = () => {
   const { items, subtotal, discountAmount, discountedSubtotal, shipping, tax, clearCart } = useCart();
+  const { addOrder } = useOrders();
   const navigate = useNavigate();
 
   const [shippingMethod, setShippingMethod] = useState('standard');
@@ -376,15 +381,38 @@ const CheckoutPage = () => {
       if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
+
+    const cardDigits = form.cardNumber.replace(/\s/g, '');
+    const cardLast4 = cardDigits.slice(-4);
+
+    const orderId = addOrder({
+      items,
+      shippingAddress: {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        address1: form.address1,
+        address2: form.address2,
+        city: form.city,
+        state: form.state,
+        postal: form.postal,
+        country: form.country,
+      },
+      cardLast4,
+      subtotal: discountedSubtotal,
+      tax,
+      shipping: finalShipping,
+      total: finalTotal,
+    });
+
     clearCart();
-    navigate('/order-confirmation', { state: { email: form.email, total: finalTotal } });
+    navigate('/order-confirmation', { state: { email: form.email, total: finalTotal, orderId } });
   };
 
   return (
     <PageTransition>
       <Wrapper>
         <Container>
-          <BackLink to="/cart">← Back to Cart</BackLink>
+          <BackLink to="/cart">&larr; Back to Cart</BackLink>
           <PageTitle initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
             Checkout
           </PageTitle>
@@ -464,7 +492,7 @@ const CheckoutPage = () => {
                       <input type="radio" name="shipping" value="standard" checked={shippingMethod === 'standard'} onChange={() => setShippingMethod('standard')} />
                       <ShippingInfo>
                         <strong>Standard Shipping</strong>
-                        <span>5–7 business days</span>
+                        <span>5&ndash;7 business days</span>
                       </ShippingInfo>
                       <ShippingPrice>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</ShippingPrice>
                     </ShippingOption>
@@ -472,7 +500,7 @@ const CheckoutPage = () => {
                       <input type="radio" name="shipping" value="express" checked={shippingMethod === 'express'} onChange={() => setShippingMethod('express')} />
                       <ShippingInfo>
                         <strong>Express Shipping</strong>
-                        <span>2–3 business days</span>
+                        <span>2&ndash;3 business days</span>
                       </ShippingInfo>
                       <ShippingPrice>$20.00</ShippingPrice>
                     </ShippingOption>
@@ -509,7 +537,7 @@ const CheckoutPage = () => {
                 </SectionBlock>
 
                 <SubmitBtn type="submit" whileTap={{ scale: 0.98 }}>
-                  Place Order — ${finalTotal.toFixed(2)}
+                  Place Order &mdash; ${finalTotal.toFixed(2)}
                 </SubmitBtn>
               </form>
             </FormSection>
@@ -521,7 +549,7 @@ const CheckoutPage = () => {
                   <img src={item.image} alt={item.name} />
                   <OrderItemInfo>
                     <h4>{item.name}</h4>
-                    <p>{item.size} · {item.color}</p>
+                    <p>{item.size} &middot; {item.color}</p>
                     <p>Qty: {item.quantity}</p>
                     <span>${(item.price * item.quantity).toFixed(2)}</span>
                   </OrderItemInfo>

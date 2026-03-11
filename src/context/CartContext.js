@@ -56,7 +56,7 @@ const cartReducer = (state, action) => {
     case 'CLEAR_CART':
       return { ...state, items: [] };
     case 'APPLY_PROMO': {
-      const promoCodes = { SAVE10: 0.1, LUXE15: 0.15, WELCOME20: 0.2 };
+      const promoCodes = { NOIR10: 0.1, ATELIER15: 0.15, WELCOME20: 0.2 };
       const discount = promoCodes[action.payload.toUpperCase()];
       if (discount) {
         return { ...state, promoCode: action.payload.toUpperCase(), discount };

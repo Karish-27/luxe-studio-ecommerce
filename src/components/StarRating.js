@@ -8,7 +8,7 @@ const Container = styled.div`
 `;
 
 const Star = styled.span`
-  color: ${(props) => (props.filled ? '#f5c518' : 'rgba(255,255,255,0.25)')};
+  color: ${(props) => (props.filled ? '#FFFFFF' : 'rgba(255,255,255,0.2)')};
   font-size: ${(props) => props.size || '0.9rem'};
 `;
 

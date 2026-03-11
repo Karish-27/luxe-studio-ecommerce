@@ -14,6 +14,7 @@ const Card = styled.div`
 
   &:hover .card-img {
     transform: scale(1.05);
+    filter: grayscale(0%);
   }
 `;
 
@@ -21,14 +22,15 @@ const ImageWrapper = styled.div`
   overflow: hidden;
   position: relative;
   aspect-ratio: 3/4;
-  background: #1a1a1a;
+  background: #111111;
 `;
 
 const CardImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  filter: grayscale(100%);
+  transition: transform 0.5s ease, filter 0.5s ease;
   display: block;
 `;
 
@@ -47,11 +49,11 @@ const Overlay = styled.div`
 `;
 
 const QuickAddBtn = styled.button`
-  background: #fff;
-  color: #202020;
+  background: #FFFFFF;
+  color: #000000;
   border: none;
   padding: 0.6rem 1.2rem;
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -59,7 +61,7 @@ const QuickAddBtn = styled.button`
   transition: all 0.2s;
 
   &:hover {
-    background: #f0f0f0;
+    background: #E0E0E0;
   }
 `;
 
@@ -67,13 +69,13 @@ const TagBadge = styled.span`
   position: absolute;
   top: 0.75rem;
   left: 0.75rem;
-  background: ${(props) => props.sale ? '#c0392b' : 'rgba(255,255,255,0.9)'};
-  color: ${(props) => props.sale ? '#fff' : '#202020'};
+  background: #FFFFFF;
+  color: #000000;
   font-size: 0.6rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   padding: 0.25rem 0.5rem;
-  font-family: 'Sirin Stencil';
+  font-family: 'Inter', sans-serif;
   z-index: 2;
 `;
 
@@ -82,7 +84,7 @@ const Info = styled.div`
 `;
 
 const ProductName = styled.h3`
-  font-family: 'Kaushan Script';
+  font-family: 'Cormorant Garamond', serif;
   font-size: ${(props) => props.theme.fontlg};
   font-weight: 300;
   color: ${(props) => props.theme.text};
