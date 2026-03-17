@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useCallback, useRef, useEffect } from 'react';
+import { createContext, useContext, useReducer, useCallback, useRef, useEffect } from 'react';
 
 const OrderContext = createContext();
 
@@ -28,10 +28,23 @@ const orderReducer = (state, action) => {
   }
 };
 
-const initialState = { orders: [] };
+const loadState = () => {
+  try {
+    const saved = localStorage.getItem('noir_orders');
+    return saved ? { orders: JSON.parse(saved) } : { orders: [] };
+  } catch {
+    return { orders: [] };
+  }
+};
 
 export const OrderProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(orderReducer, initialState);
+  const [state, dispatch] = useReducer(orderReducer, undefined, loadState);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('noir_orders', JSON.stringify(state.orders));
+    } catch {}
+  }, [state.orders]);
   const timersRef = useRef([]);
 
   useEffect(() => {

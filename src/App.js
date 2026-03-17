@@ -81,90 +81,88 @@ function AppRoutes() {
   const location = useLocation();
 
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        {/* Homepage — Locomotive Scroll + GSAP animations intact */}
-        <Route path="/" element={<HomePage />} />
+    <Routes location={location} key={location.pathname}>
+      {/* Homepage — Locomotive Scroll + GSAP animations intact */}
+      <Route path="/" element={<HomePage />} />
 
-        {/* Shop listing */}
-        <Route
-          path="/shop"
-          element={
-            <SiteLayout>
-              <ShopPage />
-            </SiteLayout>
-          }
-        />
-        <Route
-          path="/shop/:category"
-          element={
-            <SiteLayout>
-              <ShopPage />
-            </SiteLayout>
-          }
-        />
+      {/* Shop listing */}
+      <Route
+        path="/shop"
+        element={
+          <SiteLayout>
+            <ShopPage />
+          </SiteLayout>
+        }
+      />
+      <Route
+        path="/shop/:category"
+        element={
+          <SiteLayout>
+            <ShopPage />
+          </SiteLayout>
+        }
+      />
 
-        {/* New Arrivals */}
-        <Route
-          path="/new-arrivals"
-          element={
-            <SiteLayout>
-              <NewArrivalsPage />
-            </SiteLayout>
-          }
-        />
+      {/* New Arrivals */}
+      <Route
+        path="/new-arrivals"
+        element={
+          <SiteLayout>
+            <NewArrivalsPage />
+          </SiteLayout>
+        }
+      />
 
-        {/* Product detail */}
-        <Route
-          path="/product/:id"
-          element={
-            <SiteLayout>
-              <ProductDetailPage />
-            </SiteLayout>
-          }
-        />
+      {/* Product detail */}
+      <Route
+        path="/product/:id"
+        element={
+          <SiteLayout>
+            <ProductDetailPage />
+          </SiteLayout>
+        }
+      />
 
-        {/* Cart */}
-        <Route
-          path="/cart"
-          element={
-            <SiteLayout>
-              <CartPage />
-            </SiteLayout>
-          }
-        />
+      {/* Cart */}
+      <Route
+        path="/cart"
+        element={
+          <SiteLayout>
+            <CartPage />
+          </SiteLayout>
+        }
+      />
 
-        {/* Checkout */}
-        <Route
-          path="/checkout"
-          element={
-            <SiteLayout>
-              <CheckoutPage />
-            </SiteLayout>
-          }
-        />
+      {/* Checkout */}
+      <Route
+        path="/checkout"
+        element={
+          <SiteLayout>
+            <CheckoutPage />
+          </SiteLayout>
+        }
+      />
 
-        {/* Order confirmation */}
-        <Route
-          path="/order-confirmation"
-          element={
-            <SiteLayout>
-              <OrderConfirmationPage />
-            </SiteLayout>
-          }
-        />
+      {/* Order confirmation */}
+      <Route
+        path="/order-confirmation"
+        element={
+          <SiteLayout>
+            <OrderConfirmationPage />
+          </SiteLayout>
+        }
+      />
 
-        {/* Order history */}
-        <Route
-          path="/orders"
-          element={
-            <SiteLayout>
-              <OrderHistoryPage />
-            </SiteLayout>
-          }
-        />
-      </Routes>
-    </AnimatePresence>
+      {/* Order history */}
+      <Route
+        path="/orders"
+        element={
+          <SiteLayout>
+            <OrderHistoryPage />
+          </SiteLayout>
+        }
+      />
+    </Routes>
   );
 }
 

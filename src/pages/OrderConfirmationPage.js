@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import React, { useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import PageTransition from '../components/PageTransition';
 
@@ -141,16 +141,10 @@ const SecondaryBtn = styled(Link)`
 
 const OrderConfirmationPage = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const { email, total, orderId } = location.state || {};
+  const initialState = useRef(location.state);
+  const { email, total, orderId } = initialState.current || {};
 
-  useEffect(() => {
-    if (!location.state) {
-      navigate('/', { replace: true });
-    }
-  }, [location.state, navigate]);
-
-  if (!location.state) return null;
+  if (!initialState.current) return null;
 
   return (
     <PageTransition>

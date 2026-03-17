@@ -1,9 +1,10 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import PageTransition from '../components/PageTransition';
 import { useOrders } from '../context/OrderContext';
+
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -153,10 +154,12 @@ const ToggleBtn = styled.button`
   }
 `;
 
-const Details = styled(motion.div)`
+const DetailsOuter = styled.div`
   overflow: hidden;
   border-top: 1px solid #222222;
 `;
+
+const Details = styled(motion.div)``;
 
 const DetailsInner = styled.div`
   padding: 1.5rem;
@@ -252,7 +255,7 @@ const StepCircle = styled.div`
   border-radius: 50%;
   background: ${(props) => props.completed ? '#FFFFFF' : props.active ? '#FFFFFF' : '#333333'};
   border: 2px solid ${(props) => props.completed || props.active ? '#FFFFFF' : '#333333'};
-  ${(props) => props.active && `animation: ${pulse} 2s ease-in-out infinite;`}
+  ${(props) => props.active && css`animation: ${pulse} 2s ease-in-out infinite;`}
 `;
 
 const StepLabel = styled.span`
@@ -321,6 +324,12 @@ const OrderHistoryPage = () => {
             Order History
           </PageTitle>
 
+          {orders.length > 0 && (
+            <ShopLink to="/shop" style={{ display: 'inline-block', marginBottom: '2rem' }}>
+              &larr; Continue Shopping
+            </ShopLink>
+          )}
+
           {orders.length === 0 ? (
             <EmptyState>
               <p>No orders yet</p>
@@ -354,13 +363,15 @@ const OrderHistoryPage = () => {
                     {isExpanded ? 'Hide Details' : 'View Details'}
                   </ToggleBtn>
 
-                  <AnimatePresence>
+                  <AnimatePresence initial={false}>
                     {isExpanded && (
+                      <DetailsOuter>
                       <Details
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
+                        key="details"
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.25 }}
                       >
                         <DetailsInner>
                           {/* Tracking Stepper */}
@@ -426,6 +437,7 @@ const OrderHistoryPage = () => {
                           </DetailSection>
                         </DetailsInner>
                       </Details>
+                      </DetailsOuter>
                     )}
                   </AnimatePresence>
                 </OrderCard>
