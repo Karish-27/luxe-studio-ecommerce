@@ -28,12 +28,16 @@ const ScrollTriggerProxy = () => {
         },
         pinType: element.style.transform ? 'transform' : 'fixed',
       });
-    }
 
-    return () => {
-      ScrollTrigger.addEventListener('refresh', () => scroll?.update());
+      const onRefresh = () => scroll.update();
+      ScrollTrigger.addEventListener('refresh', onRefresh);
       ScrollTrigger.refresh();
-    };
+
+      return () => {
+        scroll.off('scroll', ScrollTrigger.update);
+        ScrollTrigger.removeEventListener('refresh', onRefresh);
+      };
+    }
   }, [scroll]);
 
   return null;

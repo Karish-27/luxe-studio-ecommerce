@@ -62,6 +62,24 @@ const ShopLink = styled(Link)`
   }
 `;
 
+const BackBtn = styled(Link)`
+  color: ${(props) => props.theme.grey};
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: ${(props) => props.theme.fontsm};
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s;
+  margin-bottom: 1.5rem;
+
+  &:hover {
+    color: ${(props) => props.theme.text};
+  }
+`;
+
 const OrderCard = styled(motion.div)`
   border: 1px solid #222222;
   margin-bottom: 1.5rem;
@@ -316,6 +334,7 @@ const OrderHistoryPage = () => {
     <PageTransition>
       <Wrapper>
         <Container>
+          <BackBtn to="/">&#8592; Back</BackBtn>
           <PageTitle
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -323,12 +342,6 @@ const OrderHistoryPage = () => {
           >
             Order History
           </PageTitle>
-
-          {orders.length > 0 && (
-            <ShopLink to="/shop" style={{ display: 'inline-block', marginBottom: '2rem' }}>
-              &larr; Continue Shopping
-            </ShopLink>
-          )}
 
           {orders.length === 0 ? (
             <EmptyState>

@@ -7,8 +7,8 @@ import styled from "styled-components";
 
 import img1 from "../assets/Images/1.webp";
 import img2 from "../assets/Images/2.webp";
-import img3 from "../assets/Images/3.webp";
-import img4 from "../assets/Images/4.webp";
+import img3 from "../assets/Images/1.1.jpg";
+import img4 from "../assets/Images/2.1.jpg";
 import img5 from "../assets/Images/5.webp";
 import img6 from "../assets/Images/6.webp";
 import img7 from "../assets/Images/7.webp";
@@ -194,8 +194,9 @@ const Shop = () => {
 
     let pinWrapWidth = scrollingElement.offsetWidth;
     let t1 = gsap.timeline();
+    let createdTriggers = [];
 
-    setTimeout(() => {
+    let timeoutId = setTimeout(() => {
       t1.to(element, {
         scrollTrigger: {
           trigger: element,
@@ -224,13 +225,17 @@ const Shop = () => {
 
         ease: "none",
       });
+
+      // capture only the triggers this component created
+      createdTriggers = ScrollTrigger.getAll();
       ScrollTrigger.refresh();
     }, 1000);
     ScrollTrigger.refresh();
 
     return () => {
+      clearTimeout(timeoutId);
       t1.kill();
-      ScrollTrigger.kill();
+      createdTriggers.forEach((st) => st.kill());
     };
   }, []);
 

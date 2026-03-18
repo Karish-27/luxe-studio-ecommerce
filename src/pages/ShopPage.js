@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import FilterSidebar from '../components/FilterSidebar';
 import ProductCard from '../components/ProductCard';
@@ -19,6 +19,7 @@ const Hero = styled.div`
   text-align: center;
   border-bottom: 1px solid rgba(255,255,255,0.08);
   margin-bottom: 0;
+  position: relative;
 `;
 
 const PageTitle = styled(motion.h1)`
@@ -129,6 +130,27 @@ const defaultFilters = {
   sort: 'default',
 };
 
+const BackBtn = styled(Link)`
+  color: ${(props) => props.theme.grey};
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: ${(props) => props.theme.fontsm};
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s;
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+
+  &:hover {
+    color: ${(props) => props.theme.text};
+  }
+`;
+
 const ShopPage = () => {
   const [searchParams] = useSearchParams();
   const [filters, setFilters] = useState(defaultFilters);
@@ -199,6 +221,7 @@ const ShopPage = () => {
     <PageTransition>
       <Wrapper>
         <Hero>
+          <BackBtn to="/">&#8592; Back</BackBtn>
           <PageTitle
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

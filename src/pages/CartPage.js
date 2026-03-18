@@ -22,6 +22,24 @@ const Container = styled.div`
   }
 `;
 
+const BackBtn = styled(Link)`
+  color: ${(props) => props.theme.grey};
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: ${(props) => props.theme.fontsm};
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s;
+  margin-bottom: 1.5rem;
+
+  &:hover {
+    color: ${(props) => props.theme.text};
+  }
+`;
+
 const PageTitle = styled(motion.h1)`
   font-family: 'Cormorant Garamond', serif;
   font-size: ${(props) => props.theme.fontxxxl};
@@ -362,6 +380,7 @@ const CartPage = () => {
     <PageTransition>
       <Wrapper>
         <Container>
+          <BackBtn to="/shop">&#8592; Back</BackBtn>
           <PageTitle
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

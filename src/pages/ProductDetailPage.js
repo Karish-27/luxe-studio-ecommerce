@@ -31,6 +31,24 @@ const Container = styled.div`
   }
 `;
 
+const BackBtn = styled(Link)`
+  color: ${(props) => props.theme.grey};
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: ${(props) => props.theme.fontsm};
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s;
+  margin-bottom: 1rem;
+
+  &:hover {
+    color: ${(props) => props.theme.text};
+  }
+`;
+
 const BreadcrumbWrapper = styled.div`
   margin-bottom: 2rem;
 `;
@@ -554,6 +572,7 @@ const ProductDetailPage = () => {
       <Wrapper>
         <Container>
           <BreadcrumbWrapper>
+            <BackBtn to="/shop">&#8592; Back</BackBtn>
             <Breadcrumb items={breadcrumbItems} />
           </BreadcrumbWrapper>
 
