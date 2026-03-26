@@ -17,7 +17,7 @@ const NavContainer = styled(motion.div)`
   align-items: center;
 
   @media (max-width: 40em) {
-    top: ${(props) => (props.click ? '0' : `calc(-50vh - 4rem)`)};
+    top: ${(props) => (props.click ? '0' : `-50vh`)};
   }
 `;
 
@@ -51,6 +51,10 @@ const MenuBtn = styled.li`
   @media (max-width: 40em) {
     width: 10rem;
     height: 2rem;
+    left: auto;
+    right: 1rem;
+    transform: none;
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
   }
 `;
 
@@ -122,7 +126,7 @@ const Navbar = () => {
         dragSnapToOrigin
       >
         <MenuBtn onClick={() => setClick(!click)}>
-          <span>MENU</span>
+          <span>{click ? 'CLOSE' : 'MENU'}</span>
         </MenuBtn>
         <Item
           whileHover={{ scale: 1.1, y: -5 }}

@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useLocomotiveScroll } from "react-locomotive-scroll";
 import styled from "styled-components";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 const Section = styled.section`
   min-height: 100vh;
@@ -166,6 +167,18 @@ const Footer = () => {
   const { scroll } = useLocomotiveScroll();
 
   const handleScroll = (id) => {
+    if (id === "#shop") {
+      const shopElem = document.querySelector("#shop");
+      const triggers = ScrollTrigger.getAll();
+      const shopTrigger = triggers.find((t) => t.trigger === shopElem);
+      if (shopTrigger) {
+        scroll.scrollTo(shopTrigger.start, {
+          duration: 2000,
+          easing: [0.25, 0.0, 0.35, 1.0],
+        });
+        return;
+      }
+    }
     let elem = document.querySelector(id);
     scroll.scrollTo(elem, {
       offset: "-100",
