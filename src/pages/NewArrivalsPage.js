@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PageTransition from '../components/PageTransition';
@@ -18,6 +18,13 @@ const Hero = styled.div`
   text-align: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
+
+  @media (max-width: 48em) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem 1.5rem 2rem;
+  }
 `;
 
 const BackBtn = styled(Link)`
@@ -39,6 +46,12 @@ const BackBtn = styled(Link)`
   &:hover {
     color: ${(props) => props.theme.text};
   }
+
+  @media (max-width: 48em) {
+    position: static;
+    transform: none;
+    margin-bottom: 1rem;
+  }
 `;
 
 const PageTitle = styled(motion.h1)`
@@ -47,6 +60,10 @@ const PageTitle = styled(motion.h1)`
   font-weight: 300;
   color: ${(props) => props.theme.text};
   margin-bottom: 0.75rem;
+
+  @media (max-width: 48em) {
+    align-self: center;
+  }
 `;
 
 const Subtitle = styled(motion.p)`
@@ -54,6 +71,11 @@ const Subtitle = styled(motion.p)`
   font-size: ${(props) => props.theme.fontmd};
   font-family: 'Inter', sans-serif;
   letter-spacing: 0.1em;
+
+  @media (max-width: 48em) {
+    align-self: center;
+    text-align: center;
+  }
 `;
 
 const Container = styled.div`
@@ -82,7 +104,11 @@ const ResultCount = styled.span`
   letter-spacing: 0.1em;
 `;
 
-const SortSelect = styled.select`
+const DropdownWrapper = styled.div`
+  position: relative;
+`;
+
+const DropdownButton = styled.button`
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: ${(props) => props.theme.text};
@@ -91,14 +117,45 @@ const SortSelect = styled.select`
   font-family: 'Inter', sans-serif;
   cursor: pointer;
   outline: none;
-
-  option {
-    background: #000000;
-    color: #fff;
-  }
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 160px;
+  justify-content: space-between;
 
   &:focus {
     border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media (max-width: 48em) {
+    width: 100%;
+  }
+`;
+
+const DropdownList = styled.ul`
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 100;
+`;
+
+const DropdownItem = styled.li`
+  padding: 0.6rem 0.75rem;
+  font-size: ${(props) => props.theme.fontsm};
+  font-family: 'Inter', sans-serif;
+  color: ${(props) => (props.active ? props.theme.text : props.theme.grey)};
+  background: ${(props) => (props.active ? 'rgba(255,255,255,0.08)' : 'transparent')};
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: ${(props) => props.theme.text};
   }
 `;
 
@@ -120,8 +177,26 @@ const Grid = styled.div`
   }
 `;
 
+const SORT_OPTIONS = [
+  { value: 'newest', label: 'Newest' },
+  { value: 'price-asc', label: 'Price: Low to High' },
+  { value: 'price-desc', label: 'Price: High to Low' },
+];
+
 const NewArrivalsPage = () => {
   const [sort, setSort] = useState('newest');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const newArrivalProducts = useMemo(() => {
     let result = products.filter((p) => p.tags.includes('new-arrivals'));
@@ -168,11 +243,25 @@ const NewArrivalsPage = () => {
               {newArrivalProducts.length}{' '}
               {newArrivalProducts.length === 1 ? 'product' : 'products'}
             </ResultCount>
-            <SortSelect value={sort} onChange={(e) => setSort(e.target.value)}>
-              <option value="newest">Newest</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-            </SortSelect>
+            <DropdownWrapper ref={dropdownRef}>
+              <DropdownButton onClick={() => setDropdownOpen((o) => !o)}>
+                {SORT_OPTIONS.find((o) => o.value === sort)?.label}
+                <span>{dropdownOpen ? '▲' : '▼'}</span>
+              </DropdownButton>
+              {dropdownOpen && (
+                <DropdownList>
+                  {SORT_OPTIONS.map((opt) => (
+                    <DropdownItem
+                      key={opt.value}
+                      active={sort === opt.value}
+                      onClick={() => { setSort(opt.value); setDropdownOpen(false); }}
+                    >
+                      {opt.label}
+                    </DropdownItem>
+                  ))}
+                </DropdownList>
+              )}
+            </DropdownWrapper>
           </TopBar>
 
           <Grid>

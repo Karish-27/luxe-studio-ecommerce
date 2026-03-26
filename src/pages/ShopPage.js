@@ -20,6 +20,13 @@ const Hero = styled.div`
   border-bottom: 1px solid rgba(255,255,255,0.08);
   margin-bottom: 0;
   position: relative;
+
+  @media (max-width: 48em) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem 1.5rem 2rem;
+  }
 `;
 
 const PageTitle = styled(motion.h1)`
@@ -31,6 +38,7 @@ const PageTitle = styled(motion.h1)`
 
   @media (max-width: 48em) {
     font-size: ${(props) => props.theme.fontxxl};
+    align-self: center;
   }
 `;
 
@@ -38,6 +46,11 @@ const Subtitle = styled(motion.p)`
   color: ${(props) => props.theme.grey};
   font-size: ${(props) => props.theme.fontmd};
   letter-spacing: 0.1em;
+
+  @media (max-width: 48em) {
+    align-self: center;
+    text-align: center;
+  }
 `;
 
 const Container = styled.div`
@@ -148,6 +161,12 @@ const BackBtn = styled(Link)`
 
   &:hover {
     color: ${(props) => props.theme.text};
+  }
+
+  @media (max-width: 48em) {
+    position: static;
+    transform: none;
+    margin-bottom: 1rem;
   }
 `;
 
